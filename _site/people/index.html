@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html ng-app="jafApp">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>People</title>
+    <meta name="description" content="your site description">
+    <link rel="canonical" href="http://yourdomain.com/jekyll-angular-firebase/people/">
+
+    <!-- Angular.JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+
+	<!-- jQuery (just for Bootstrap) -->
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+
+    <!-- Custom CSS -->    
+    <link rel="stylesheet" href="/jekyll-angular-firebase/css/all.css">
+
+	<!-- Firebase -->
+	<script src="https://cdn.firebase.com/js/client/1.0.18/firebase.js"></script>
+	
+	<!-- Firebase simple login -->
+	<script src="https://cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js"></script>	
+
+	<!-- AngularFire -->
+	<script src="https://cdn.firebase.com/libs/angularfire/0.8.0/angularfire.min.js"></script>
+
+	<!-- Angular controllers -->
+	<script src="/jekyll-angular-firebase/js/common.js"></script>
+	
+</head>
+
+
+    <body>
+
+        <div id="data-firebase-url" data-firebase-url="https://f4a-fire-signin.firebaseio.com/" />
+
+        <header class="site-header">
+
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/jekyll-angular-firebase">Jekyll - Angular - Firebase (JAF)</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        
+        
+          
+        
+          <li ><a href="/jekyll-angular-firebase/notes/">Notes</a></li>
+          
+        
+          <li class="active"><a href="/jekyll-angular-firebase/people/">People</a></li>
+          
+        
+      </ul>     
+      <ul class="nav navbar-nav navbar-right" ng-controller="authController">
+        <li><a href="#">[[{ user.email }]]</a></li>
+        <li><a href="" ng-click="login()" ng-show="!user.email">Log in</a></li>
+        <li><a href="" ng-click="logout()" ng-show="user.email">Log out</a></li>
+      </ul>
+      
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+</header>
+
+
+        <div class="page-content" >
+          <div class="wrap">
+            <div class="container-fluid">
+              <script src="/jekyll-angular-firebase/js/people.js"></script>
+
+<div class="home" ng-controller="customersController">
+
+  <h3>People ([[{ customers.length }]])</h3>
+
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name &nbsp;&nbsp;<input type="text" placeholder="filter" ng-model="filter"></input></th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th ng-show="user.email">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="customer in customers | filter:filter">
+        <td>[[{ customer.id }]]</td>
+        <td>[[{ customer.name }]]</td>
+        <td>[[{ customer.email }]]</td>
+        <td>[[{ customer.phone }]]</td>
+        <td ng-show="user.email" ng-click="removeCustomer(customer.id)">
+          <div class="glyphicon glyphicon-remove" title="DELETE"></div>
+        </td>
+      </tr>
+      <tr ng-show="user.email">
+        <td></td>
+        <td><input type="text" ng-model="newCustomerName" placeholder="add new..."></input></td>
+        <td><input type="text" ng-model="newCustomerEmail" ng-show="newCustomerName" placeholder="add new..."></input></td>
+        <td><input type="text" ng-model="newCustomerPhone" ng-show="newCustomerName" placeholder="add new..."></input></td>
+        <td><button class="btn btn-primary" ng-click="addCustomer()" ng-show="newCustomerName && newCustomerEmail && newCustomerPhone">add</button></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- <footer class="site-footer">
+
+  <div class="wrap">
+
+    <div class="footer-col-1 column">
+    </div>
+
+    <div class="footer-col-2 column">
+    </div>
+
+    <div class="footer-col-3 column">
+    </div>
+   
+
+  </div>
+
+</footer>
+ -->
+
+    </body>
+</html>
